@@ -1,0 +1,48 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background: rgba(217, 217, 217, 0.3); /* Giữ màu trong suốt */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+    color: black;
+    font-size: 17px;
+    line-height: 60px;
+    text-align: center;
+    display: block;
+    float: left;
+    padding: 0 26px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Active state - trang hiện tại */
+nav a.active {
+    color: white; /* Màu trắng cho active */
+
+}
+
+/* Hover cho non-active items */
+nav a:not(.active):hover {
+    color: white;
+}
+

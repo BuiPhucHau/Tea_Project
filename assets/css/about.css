@@ -1,0 +1,79 @@
+/* About page specific styles */
+
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+.about .banner {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.about .banner img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: cover;
+}
+
+/* Banner text overlay với animation classes */
+.cbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+
+.inbox {
+    width: 100%;
+    text-align: center;
+}
+
+.inbox2 {
+    padding: 0 2rem;
+}
+
+.box {
+    display: inline-block;
+}
+
+.text1 {
+    font-size: 4rem;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* WOW.js animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
