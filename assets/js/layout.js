@@ -4,6 +4,7 @@ fetch("./layouts/header.html")
     .then(data => {
         document.getElementById("header-placeholder").innerHTML = data;
         setActiveMenu();
+        initMobileMenu(); // Khởi tạo mobile menu NGAY SAU KHI load header
     });
 
 // Load footer
@@ -16,9 +17,11 @@ fetch("./layouts/footer.html")
 // Hàm tự động set active menu
 function setActiveMenu() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
     document.querySelectorAll('nav a').forEach(link => {
         link.classList.remove('active');
     });
+
     switch (currentPage) {
         case 'index.html':
         case '':
@@ -44,6 +47,52 @@ function setActiveMenu() {
     }
 }
 
+// Hàm khởi tạo mobile menu (chỉ chạy sau khi header đã load)
+function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    if (!hamburger || !navMenu) {
+        console.error('Hamburger hoặc navMenu không tìm thấy');
+        return;
+    }
+
+    // Toggle menu khi click hamburger
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Đóng menu khi click vào navigation link (mobile)
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Đóng menu khi click bên ngoài (mobile)
+    document.addEventListener('click', function(e) {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // Đóng menu khi resize window về desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // Prevent menu flash on page load
+    navMenu.style.transition = 'left 0.3s ease';
+}
+
 // Hàm để reset và kích hoạt animation
 function resetAndStartAnimation() {
     // Reset tất cả animation trước
@@ -58,11 +107,9 @@ function resetAndStartAnimation() {
     const activeSlide = document.querySelector('.swiper-slide-active');
     if (activeSlide) {
         const elementsToAnimate = activeSlide.querySelectorAll('.text1, .text2');
-        
         elementsToAnimate.forEach((el, index) => {
             // Đặt lại opacity về 0 trước khi animation
             el.style.opacity = '0';
-            
             setTimeout(() => {
                 // Thêm class animation dựa trên class của element
                 if (el.classList.contains('text1')) {
